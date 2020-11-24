@@ -1,11 +1,19 @@
 package app.models.entities.produtos.imoveis;
 
 import app.models.entities.produtos.Produto;
-import app.utils.Tipo;
+import app.utils.TipoProduto;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-public abstract class Imovel implements Produto {
-    private static final Tipo tipo = Tipo.IMOVEL;
-    public Tipo getTipo() {
-        return tipo;
+@AllArgsConstructor
+@Getter
+@Setter
+public class Imovel implements Produto {
+    private static final TipoProduto TIPO_PRODUTO = TipoProduto.IMOVEL;
+    private TipoImovel tipoImovel;
+
+    public TipoProduto getTipo() {
+        return TIPO_PRODUTO;
     }
 }
