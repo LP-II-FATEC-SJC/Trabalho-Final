@@ -1,6 +1,8 @@
 .gradle
 /build/
 .idea/sonarlint
+.idea/gradle.xml
+.idea/uiDesigner.xml
 
 # Ignore Gradle GUI config
 gradle-app.setting

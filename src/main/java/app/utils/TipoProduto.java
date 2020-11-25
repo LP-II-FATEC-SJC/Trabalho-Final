@@ -1,6 +1,6 @@
 package app.utils;
 
-public enum Tipo {
+public enum TipoProduto {
     IMOVEL,
     VEICULO
 }

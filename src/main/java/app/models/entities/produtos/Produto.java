@@ -1,10 +1,7 @@
 package app.models.entities.produtos;
 
-import app.models.entities.Leilao;
-import app.utils.Tipo;
+import app.utils.TipoProduto;
 
 public interface Produto {
-    void setLeilao();
-    Leilao getLeilao();
-    Tipo getTipo();
+    TipoProduto getTipo();
 }
