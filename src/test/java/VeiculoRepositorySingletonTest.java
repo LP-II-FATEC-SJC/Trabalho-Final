@@ -27,7 +27,7 @@ class VeiculoRepositorySingletonTest {
     @Order(2)
     void validarAdicao() {
         VeiculoRepositorySingleton veiculoRepositorySingleton = VeiculoRepositorySingleton.getInstance();
-        Veiculo v = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.ONE);
+        Veiculo v = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.ONE, "test");
         veiculoRepositorySingleton.add(v);
         assertEquals(veiculoRepositorySingleton.getVeiculoById(0), v);
     }
@@ -36,9 +36,9 @@ class VeiculoRepositorySingletonTest {
     @Order(3)
     void validarUpdate() {
         VeiculoRepositorySingleton veiculoRepositorySingleton = VeiculoRepositorySingleton.getInstance();
-        Veiculo v = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.ONE);
+        Veiculo v = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.ONE, "test");
         veiculoRepositorySingleton.add(v);
-        Veiculo esperado = new Veiculo(TipoVeiculo.MOTOCICLETA, "sobrescrito", 2, "sobrescrito", "sobrescrito", BigDecimal.ZERO);
+        Veiculo esperado = new Veiculo(TipoVeiculo.MOTOCICLETA, "sobrescrito", 2, "sobrescrito", "sobrescrito", BigDecimal.ZERO, "test");
         esperado.setId(0);
         veiculoRepositorySingleton.update(esperado);
         Veiculo res = veiculoRepositorySingleton.getVeiculoById(0);
@@ -50,15 +50,16 @@ class VeiculoRepositorySingletonTest {
         assertEquals(esperado.getTipoVeiculo(), res.getTipoVeiculo());
         assertEquals(esperado.getUnidade(), res.getUnidade());
         assertEquals(esperado.getValorMinimo(), res.getValorMinimo());
+        assertEquals(esperado.getNome(), res.getNome());
     }
 
     @Test
     @Order(4)
     void validarDelete() {
         VeiculoRepositorySingleton veiculoRepositorySingleton = VeiculoRepositorySingleton.getInstance();
-        Veiculo v1 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN);
-        Veiculo v2 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 1, "test", "test", BigDecimal.ONE);
-        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE);
+        Veiculo v1 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN, "test");
+        Veiculo v2 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 1, "test", "test", BigDecimal.ONE, "test");
+        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE, "test");
         veiculoRepositorySingleton.add(v1);
         veiculoRepositorySingleton.add(v2);
         veiculoRepositorySingleton.add(v3);
@@ -73,7 +74,7 @@ class VeiculoRepositorySingletonTest {
     @Order(5)
     void validarContador() {
         VeiculoRepositorySingleton veiculoRepositorySingleton = VeiculoRepositorySingleton.getInstance();
-        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE);
+        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE, "test");
         assertEquals(5, (int) veiculoRepositorySingleton.getContador());
         veiculoRepositorySingleton.delete(1);
         assertEquals(5, (int) veiculoRepositorySingleton.getContador());
@@ -86,12 +87,12 @@ class VeiculoRepositorySingletonTest {
     void validarListaVeiculos() {
         VeiculoRepositorySingleton veiculoRepositorySingleton = VeiculoRepositorySingleton.getInstance();
         List<Veiculo> esperado = new ArrayList<>();
-        Veiculo v0 = new Veiculo(TipoVeiculo.MOTOCICLETA, "sobrescrito", 2, "sobrescrito", "sobrescrito", BigDecimal.ZERO);
-        Veiculo v1 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN);
-        Veiculo v2 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN);
-        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 1, "test", "test", BigDecimal.ONE);
-        Veiculo v4 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE);
-        Veiculo v5 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE);
+        Veiculo v0 = new Veiculo(TipoVeiculo.MOTOCICLETA, "sobrescrito", 2, "sobrescrito", "sobrescrito", BigDecimal.ZERO, "test");
+        Veiculo v1 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN, "test");
+        Veiculo v2 = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.TEN, "test");
+        Veiculo v3 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 1, "test", "test", BigDecimal.ONE, "test");
+        Veiculo v4 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE, "test");
+        Veiculo v5 = new Veiculo(TipoVeiculo.MOTOCICLETA, "test", 10, "test", "test", BigDecimal.ONE, "test");
         v0.setId(0);
         esperado.add(v0);
         v1.setId(1);
@@ -115,6 +116,7 @@ class VeiculoRepositorySingletonTest {
             assertEquals(esperado.get(i).getTipoVeiculo(), res.get(i).getTipoVeiculo());
             assertEquals(esperado.get(i).getUnidade(), res.get(i).getUnidade());
             assertEquals(esperado.get(i).getValorMinimo(), res.get(i).getValorMinimo());
+            assertEquals(esperado.get(i).getNome(), res.get(i).getNome());
         }
     }
 }

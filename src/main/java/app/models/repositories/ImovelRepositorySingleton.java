@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-public class ImovelRepository {
+public class ImovelRepositorySingleton {
     private final List<Imovel> imoveis;
 
-    public ImovelRepository() {
+    public ImovelRepositorySingleton() {
         imoveis = new ArrayList<>();
     }
 
