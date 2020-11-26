@@ -1,8 +1,9 @@
 package app.models.entities.produtos.imoveis;
 
+import app.models.entities.Entidade;
 import app.models.entities.Lance;
 import app.models.entities.produtos.Produto;
-import app.utils.TipoProduto;
+import app.utils.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,8 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Imovel implements Produto {
+public class Imovel implements Produto, Entidade {
     private static final TipoProduto TIPO_PRODUTO = TipoProduto.IMOVEL;
+    private Integer id;
     private TipoImovel tipoImovel;
 
     public TipoProduto getTipo() {

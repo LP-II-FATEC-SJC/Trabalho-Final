@@ -1,7 +1,7 @@
 package app.models.entities.produtos;
 
 import app.models.entities.Lance;
-import app.utils.TipoProduto;
+import app.utils.enums.TipoProduto;
 
 import java.math.BigDecimal;
 import java.util.List;

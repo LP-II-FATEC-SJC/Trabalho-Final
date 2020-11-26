@@ -1,18 +1,20 @@
 package app.models.entities.produtos.veiculos;
 
+import app.models.entities.Entidade;
 import app.models.entities.Lance;
 import app.models.entities.produtos.Produto;
-import app.utils.TipoProduto;
+import app.utils.enums.TipoProduto;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class Veiculo implements Produto {
+public class Veiculo implements Produto, Entidade {
     private static final TipoProduto TIPO_PRODUTO = TipoProduto.VEICULO;
     private Integer id;
     private TipoVeiculo tipoVeiculo;
@@ -41,6 +43,7 @@ public class Veiculo implements Produto {
         setValorMinimo(valorMinimo);
         setNome(nome);
         setQtdLances(0);
+        lances = new ArrayList<>();
     }
 
     @Override
@@ -69,5 +72,16 @@ public class Veiculo implements Produto {
                 ", qtdLances=" + qtdLances +
                 ", lances=" + lances +
                 '}';
+    }
+
+    public void update(Veiculo v) {
+        setNome(v.getNome());
+        setQtdLances(v.getQtdLances());
+        setValorMinimo(v.getValorMinimo());
+        setDescricao(v.getDescricao());
+        setUnidade(v.getUnidade());
+        setQuantidade(v.getQuantidade());
+        setRecinto(v.getRecinto());
+        setTipoVeiculo(v.getTipoVeiculo());
     }
 }

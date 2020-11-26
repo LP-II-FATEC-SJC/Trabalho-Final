@@ -1,38 +1,42 @@
 package app.models.entities;
 
 import app.models.entities.produtos.Produto;
-import app.utils.StatusLeilao;
+import app.utils.enums.StatusLeilao;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Getter
 @Setter
-public class Leilao {
+public class Leilao implements Entidade {
     private Integer id;
-    private Date dataOcorrencia;
+    private LocalDateTime dataOcorrencia;
     private String local;
     private String endereco;
     private String cidade;
     private String estado;
     private List<Produto> produtos;
-    private Date inicioDataHora;
-    private Date fimDataHora;
+    private LocalTime inicioLocalTime;
+    private LocalTime fimLocalTime;
     private StatusLeilao status;
     private String detalhes;
 
-    public Leilao (Date dataOcorrencia, String local, String endereco, String cidade, Date inicioDataHora, Date fimDataHora, String detalhes) {
+    public Leilao (LocalDateTime dataOcorrencia, String local, String endereco, String cidade, String estado,
+                   LocalTime inicioLocalTime, LocalTime fimLocalTime, String detalhes) {
         setDataOcorrencia(dataOcorrencia);
         setLocal(local);
         setEndereco(endereco);
         setCidade(cidade);
-        setInicioDataHora(inicioDataHora);
-        setFimDataHora(fimDataHora);
+        setEstado(estado);
+        setInicioLocalTime(inicioLocalTime);
+        setFimLocalTime(fimLocalTime);
         setDetalhes(detalhes);
-        produtos = new ArrayList<>();
+        setProdutos(new ArrayList<>());
         updateStatusLeilao();
     }
 
@@ -42,14 +46,18 @@ public class Leilao {
     }
 
     private void updateStatusLeilao() {
-        Date now = new Date(System.currentTimeMillis());
-        if(now.compareTo(getDataOcorrencia()) < 0) {
+        LocalDateTime now = LocalDateTime.now(ZoneId.of("America/Sao_Paulo"));
+        if(now.isBefore(getDataOcorrencia())) {
             setStatus(StatusLeilao.EM_ABERTO);
-        } else if(now.compareTo(getDataOcorrencia()) == 0) {
-            if(now.compareTo(getInicioDataHora()) < 0) {
+        } else if(
+                now.getYear() == getDataOcorrencia().getYear() &&
+                now.getMonth() == getDataOcorrencia().getMonth() &&
+                now.getDayOfMonth() == getDataOcorrencia().getDayOfMonth()
+        ) {
+            if(now.toLocalTime().isBefore(getInicioLocalTime())) {
                 setStatus(StatusLeilao.EM_ABERTO);
-            } else if(now.compareTo(getInicioDataHora()) >= 0) {
-                if(now.compareTo(getFimDataHora()) < 0) {
+            } else if(now.toLocalTime().isAfter(getInicioLocalTime()) || now.toLocalTime().equals(getInicioLocalTime())) {
+                if(now.toLocalTime().isBefore(getFimLocalTime())) {
                     setStatus(StatusLeilao.EM_ANDAMENTO);
                 } else {
                     setStatus(StatusLeilao.FINALIZADO);
@@ -58,5 +66,22 @@ public class Leilao {
         } else {
             setStatus(StatusLeilao.FINALIZADO);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Leilao{" +
+                "id=" + getId() +
+                ", dataOcorrencia=" + getDataOcorrencia() +
+                ", local='" + getLocal() + '\'' +
+                ", endereco='" + getEndereco() + '\'' +
+                ", cidade='" + getCidade() + '\'' +
+                ", estado='" + getEstado() + '\'' +
+                ", produtos=" + getProdutos() +
+                ", inicioLocalTime=" + getInicioLocalTime() +
+                ", fimLocalTime=" + getFimLocalTime() +
+                ", status=" + getStatus() +
+                ", detalhes='" + getDetalhes() + '\'' +
+                '}';
     }
 }

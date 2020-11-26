@@ -1,4 +1,4 @@
-package app.utils;
+package app.utils.enums;
 
 public enum TipoProduto {
     IMOVEL,
