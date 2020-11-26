@@ -1,4 +1,10 @@
 package app.models.entities;
 
-public class Instituicao {
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
+public class Instituicao implements Entidade {
+    private Integer id;
 }
