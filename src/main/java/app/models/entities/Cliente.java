@@ -7,11 +7,11 @@ import lombok.Setter;
 @Setter
 public class Cliente implements Entidade {
     private Integer id;
-    private Integer nDocumento; //CPF ou CNPJ
+    private String nDocumento; //CPF ou CNPJ
     private String codigoAcesso;
     private String senha;
 
-    public Cliente(Integer nDocumento, String codigoAcesso, String senha) {
+    public Cliente(String nDocumento, String codigoAcesso, String senha) {
         setNDocumento(nDocumento);
         setCodigoAcesso(codigoAcesso);
         setSenha(senha);

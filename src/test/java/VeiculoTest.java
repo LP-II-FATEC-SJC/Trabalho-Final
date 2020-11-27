@@ -14,9 +14,9 @@ class VeiculoTest {
     @Test
     void testAddLance() {
         Veiculo v = new Veiculo(TipoVeiculo.CARRO, "test", 1, "test", "test", BigDecimal.ONE, "test");
-        v.addLance(new Lance(new Cliente(0, "test", "test"), BigDecimal.ONE));
+        v.addLance(new Lance(new Cliente("0", "test", "test"), BigDecimal.ONE));
         List<Lance> lances = v.getLances();
-        Lance expectedLance = new Lance(new Cliente(0, "test", "test"), BigDecimal.ONE);
+        Lance expectedLance = new Lance(new Cliente("0", "test", "test"), BigDecimal.ONE);
         expectedLance.setId(0);
         assertEquals(1, v.getQtdLances());
         assertEquals(expectedLance.getCliente().getId(), lances.get(0).getCliente().getId());

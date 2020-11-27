@@ -25,9 +25,10 @@ public class Leilao implements Entidade {
     private LocalTime fimLocalTime;
     private StatusLeilao status;
     private String detalhes;
+    private Instituicao instituicaoFinanceira;
 
     public Leilao (LocalDateTime dataOcorrencia, String local, String endereco, String cidade, String estado,
-                   LocalTime inicioLocalTime, LocalTime fimLocalTime, String detalhes) {
+                   LocalTime inicioLocalTime, LocalTime fimLocalTime, String detalhes, Instituicao instituicaoFinanceira) {
         setDataOcorrencia(dataOcorrencia);
         setLocal(local);
         setEndereco(endereco);
@@ -37,6 +38,7 @@ public class Leilao implements Entidade {
         setFimLocalTime(fimLocalTime);
         setDetalhes(detalhes);
         setProdutos(new ArrayList<>());
+        setInstituicaoFinanceira(instituicaoFinanceira);
         updateStatusLeilao();
     }
 
