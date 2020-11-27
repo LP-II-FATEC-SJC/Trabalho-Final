@@ -1,6 +1,6 @@
 import app.models.entities.produtos.veiculos.TipoVeiculo;
 import app.models.entities.produtos.veiculos.Veiculo;
-import app.models.repositories.VeiculoRepository;
+import app.models.repositories.BaseRepository;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VeiculoRepositoryTest {
 
-    VeiculoRepository veiculoRepository = new VeiculoRepository();
+    BaseRepository<Veiculo> veiculoRepository = new BaseRepository<>();
 
     @Test
     void validarAdicao() {
@@ -27,7 +27,7 @@ class VeiculoRepositoryTest {
         Veiculo esperado = new Veiculo(TipoVeiculo.MOTOCICLETA, "sobrescrito", 2, "sobrescrito", "sobrescrito", BigDecimal.ZERO, "test");
         esperado.setId(0);
         veiculoRepository.add(esperado);
-        Veiculo res = (Veiculo) veiculoRepository.getEntidadeById(0);
+        Veiculo res = veiculoRepository.getEntidadeById(0);
         assertEquals(esperado.getDescricao(), res.getDescricao());
         assertEquals(esperado.getId(), res.getId());
         assertEquals(esperado.getQuantidade(), res.getQuantidade());
