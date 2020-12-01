@@ -1,9 +1,9 @@
 package app.models.entities.produtos.veiculos;
 
-import app.models.entities.Entidade;
 import app.models.entities.Lance;
-import app.models.entities.produtos.Produto;
-import app.utils.enums.TipoProduto;
+import app.models.entities.produtos.IProduto;
+import app.utils.enums.TipoProdutoEnum;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.Setter;
@@ -14,10 +14,11 @@ import java.util.List;
 
 @Getter
 @Setter
-public class Veiculo implements Produto, Entidade {
-    private static final TipoProduto TIPO_PRODUTO = TipoProduto.VEICULO;
+@AllArgsConstructor
+public class Veiculo implements IProduto {
+    private static final TipoProdutoEnum TIPO_PRODUTO = TipoProdutoEnum.VEICULO;
     private Integer id;
-    private TipoVeiculo tipoVeiculo;
+    private TipoVeiculoEnum tipoVeiculo;
     private String recinto;
     private Integer quantidade;
     private String unidade;
@@ -27,7 +28,7 @@ public class Veiculo implements Produto, Entidade {
     private Integer qtdLances;
     private List<Lance> lances;
 
-    public Veiculo(@NonNull TipoVeiculo tipoVeiculo,
+    public Veiculo(@NonNull TipoVeiculoEnum tipoVeiculo,
                    @NonNull String recinto,
                    @NonNull Integer quantidade,
                    @NonNull String unidade,
@@ -46,8 +47,28 @@ public class Veiculo implements Produto, Entidade {
         lances = new ArrayList<>();
     }
 
+
+    public Veiculo(@NonNull Integer id,
+                   @NonNull TipoVeiculoEnum tipoVeiculo,
+                   @NonNull String recinto,
+                   @NonNull Integer quantidade,
+                   @NonNull String unidade,
+                   @NonNull String descricao,
+                   @NonNull BigDecimal valorMinimo,
+                   @NonNull String nome)
+    {
+        setId(id);
+        setTipoVeiculo(tipoVeiculo);
+        setRecinto(recinto);
+        setQuantidade(quantidade);
+        setUnidade(unidade);
+        setDescricao(descricao);
+        setValorMinimo(valorMinimo);
+        setNome(nome);
+    }
+
     @Override
-    public TipoProduto getTipo() {
+    public TipoProdutoEnum getTipo() {
         return TIPO_PRODUTO;
     }
 
@@ -76,7 +97,6 @@ public class Veiculo implements Produto, Entidade {
 
     public void update(Veiculo v) {
         setNome(v.getNome());
-        setQtdLances(v.getQtdLances());
         setValorMinimo(v.getValorMinimo());
         setDescricao(v.getDescricao());
         setUnidade(v.getUnidade());

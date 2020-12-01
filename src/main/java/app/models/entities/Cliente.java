@@ -1,11 +1,13 @@
 package app.models.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Cliente implements Entidade {
+@AllArgsConstructor
+public class Cliente implements IEntidade {
     private Integer id;
     private String nDocumento; //CPF ou CNPJ
     private String codigoAcesso;
@@ -25,5 +27,11 @@ public class Cliente implements Entidade {
                 ", codigoAcesso='" + getCodigoAcesso() + '\'' +
                 ", senha='" + getSenha() + '\'' +
                 '}';
+    }
+
+    public void update(Cliente c) {
+        setNDocumento(c.getNDocumento());
+        setCodigoAcesso(c.getCodigoAcesso());
+        setSenha(c.getSenha());
     }
 }

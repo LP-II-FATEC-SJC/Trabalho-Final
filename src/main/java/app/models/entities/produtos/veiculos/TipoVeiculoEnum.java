@@ -1,6 +1,6 @@
 package app.models.entities.produtos.veiculos;
 
-public enum TipoVeiculo {
+public enum TipoVeiculoEnum {
     CARRO,
     MOTOCICLETA
 }

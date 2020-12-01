@@ -1,6 +1,6 @@
 package app.models.entities;
 
-public interface Entidade {
+public interface IEntidade {
     Integer getId();
     void setId(Integer id);
 }

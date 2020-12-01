@@ -1,6 +1,6 @@
 package app.models.entities.produtos.imoveis;
 
-public enum TipoImovel {
+public enum TipoImovelEnum {
     APARTAMENTO,
     CASA,
     EDIFICIO,

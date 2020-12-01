@@ -1,55 +1,88 @@
 package app.models.entities.produtos.imoveis;
 
-import app.models.entities.Entidade;
 import app.models.entities.Lance;
-import app.models.entities.produtos.Produto;
-import app.utils.enums.TipoProduto;
+import app.models.entities.produtos.IProduto;
+import app.utils.enums.TipoProdutoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
 @Getter
 @Setter
-public class Imovel implements Produto, Entidade {
-    private static final TipoProduto TIPO_PRODUTO = TipoProduto.IMOVEL;
+public class Imovel implements IProduto {
+    private static final TipoProdutoEnum TIPO_PRODUTO = TipoProdutoEnum.IMOVEL;
     private Integer id;
-    private TipoImovel tipoImovel;
+    private TipoImovelEnum tipoImovel;
+    private String nome;
+    private BigDecimal valorMinimo;
+    private Integer qtdLances;
+    private List<Lance> lances;
+    private String descricao;
 
-    public TipoProduto getTipo() {
+    public TipoProdutoEnum getTipo() {
         return TIPO_PRODUTO;
     }
 
-    @Override
-    public String getNome() {
-        return null;
+    public Imovel(@NonNull TipoImovelEnum tipoImovel,
+                   @NonNull String nome,
+                   @NonNull BigDecimal valorMinimo,
+                   @NonNull String descricao)
+    {
+        setTipoImovel(tipoImovel);
+        setDescricao(descricao);
+        setValorMinimo(valorMinimo);
+        setNome(nome);
+        setQtdLances(0);
+        lances = new ArrayList<>();
     }
 
-    @Override
-    public BigDecimal getValorMinimo() {
-        return null;
-    }
 
-    @Override
-    public Integer getQtdLances() {
-        return null;
-    }
-
-    @Override
-    public List<Lance> getLances() {
-        return null;
-    }
-
-    @Override
-    public String getDescricao() {
-        return null;
+    public Imovel(@NonNull Integer id,
+                  @NonNull TipoImovelEnum tipoImovel,
+                  @NonNull String nome,
+                  @NonNull BigDecimal valorMinimo,
+                  @NonNull String descricao)
+    {
+        setId(id);
+        setTipoImovel(tipoImovel);
+        setDescricao(descricao);
+        setValorMinimo(valorMinimo);
+        setNome(nome);
     }
 
     @Override
     public void addLance(Lance lance) {
+        lance.setId(qtdLances);
+        lances.add(lance);
+        qtdLances++;
+    }
 
+    @Override
+    public String toString() {
+        return "Imovel{" +
+                "id=" + getId() +
+                ", tipoImovel=" + getTipoImovel() +
+                ", nome='" + getNome() + '\'' +
+                ", valorMinimo=" + getValorMinimo() +
+                ", qtdLances=" + getQtdLances() +
+                ", lances=" + getLances() +
+                ", descricao='" + getDescricao() + '\'' +
+                ", tipo=" + getTipo() +
+                '}';
+    }
+
+    public void update(Imovel i) {
+        setNome(i.getNome());
+        setQtdLances(i.getQtdLances());
+        setValorMinimo(i.getValorMinimo());
+        setDescricao(i.getDescricao());
+        setLances(i.getLances());
+        setTipoImovel(i.getTipoImovel());
     }
 }

@@ -1,6 +1,6 @@
 package app.models.repositories;
 
-import app.models.entities.Entidade;
+import app.models.entities.IEntidade;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class BaseRepository<T extends Entidade> {
+public class BaseRepository<T extends IEntidade> {
     private final List<T> entidades;
     private Integer contador;
 
@@ -34,7 +34,7 @@ public class BaseRepository<T extends Entidade> {
         if(e.getId() != null) {
             for (T entidade : entidades) {
                 if (entidade.getId().equals(e.getId())) {
-                    update(e, entidade);
+                    update(entidade, e);
                     break;
                 }
             }
